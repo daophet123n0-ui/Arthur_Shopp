@@ -6,9 +6,9 @@
 # Clear screen and set colors
 Clear-Host
 $host.UI.RawUI.BackgroundColor = "Black"
-$host.UI.RawUI.ForegroundColor = "Green"
+$host.UI.RawUI.ForegroundColor = "Cyan"
 
-# ANSI Art Banner
+# ANSI Art Banner - DASHER Style
 $banner = @"
 ╔═══════════════════════════════════════════════════════════════╗
 ║                                                               ║
@@ -69,21 +69,102 @@ if ($licenseKey -eq "arthur" -or $licenseKey -eq "ARTHUR" -or $licenseKey -eq "a
     exit
 }
 
-# Main Menu
+# Main Menu - DASHER Style
 while($true) {
     Clear-Host
     Write-Host $banner -ForegroundColor Cyan
     
-    Write-Host "`n[MAIN MENU]`n" -ForegroundColor Yellow
-    Write-Host "  1. 📝 To-Do List Manager" -ForegroundColor Green
-    Write-Host "  2. 🧮 Calculator Pro" -ForegroundColor Green
-    Write-Host "  3. 💻 System Analyzer" -ForegroundColor Green
-    Write-Host "  4. 🎮 Mini Games" -ForegroundColor Green
-    Write-Host "  5. ℹ️  About Arthur Shop" -ForegroundColor Green
-    Write-Host "  6. 🚪 Exit" -ForegroundColor Red
+    Write-Host "`n" -ForegroundColor Cyan
+    Write-Host "  ┌─────────────────────────────────────────┐" -ForegroundColor Cyan
+    Write-Host "  │          [MAIN MENU]                    │" -ForegroundColor Cyan
+    Write-Host "  ├─────────────────────────────────────────┤" -ForegroundColor Cyan
+    Write-Host "  │                                         │" -ForegroundColor Cyan
+    Write-Host "  │  [1] LOW                                │" -ForegroundColor Green
+    Write-Host "  │  [2] Medium                             │" -ForegroundColor Green
+    Write-Host "  │  [3] High                               │" -ForegroundColor Green
+    Write-Host "  │  [4] Reset                              │" -ForegroundColor Yellow
+    Write-Host "  │                                         │" -ForegroundColor Cyan
+    Write-Host "  │  Scroll wheel to navigate, Enter to select" -ForegroundColor Gray
+    Write-Host "  │                                         │" -ForegroundColor Cyan
+    Write-Host "  └─────────────────────────────────────────┘" -ForegroundColor Cyan
     Write-Host ""
     
-    $choice = Read-Host "[>] Select option (1-6)"
+    $choice = Read-Host "[>] Select option (1-4)"
+    
+    switch($choice) {
+        "1" { Show-LowMode }
+        "2" { Show-MediumMode }
+        "3" { Show-HighMode }
+        "4" { Show-Reset }
+        default { 
+            Write-Host "`n[!] Invalid option!" -ForegroundColor Red
+            Start-Sleep -Milliseconds 500
+        }
+    }
+}
+
+# ========================================
+# LOW MODE
+# ========================================
+
+function Show-LowMode {
+    Clear-Host
+    Write-Host $banner -ForegroundColor Cyan
+    
+    Write-Host "`n" -ForegroundColor Cyan
+    Write-Host "  ┌─────────────────────────────────────────┐" -ForegroundColor Cyan
+    Write-Host "  │          [1] LOW MODE                   │" -ForegroundColor Yellow
+    Write-Host "  ├─────────────────────────────────────────┤" -ForegroundColor Cyan
+    Write-Host "  │                                         │" -ForegroundColor Cyan
+    Write-Host "  │  📝 To-Do List Manager                  │" -ForegroundColor Green
+    Write-Host "  │  🧮 Calculator Pro                      │" -ForegroundColor Green
+    Write-Host "  │  💻 System Analyzer                     │" -ForegroundColor Green
+    Write-Host "  │                                         │" -ForegroundColor Cyan
+    Write-Host "  │  [5] Back to Menu                       │" -ForegroundColor Red
+    Write-Host "  │                                         │" -ForegroundColor Cyan
+    Write-Host "  └─────────────────────────────────────────┘" -ForegroundColor Cyan
+    Write-Host ""
+    
+    $choice = Read-Host "[>] Select option (1-3 or 5)"
+    
+    switch($choice) {
+        "1" { Show-TodoMenu }
+        "2" { Show-Calculator }
+        "3" { Show-SystemInfo }
+        "5" { return }
+        default { 
+            Write-Host "`n[!] Invalid option!" -ForegroundColor Red
+            Start-Sleep -Milliseconds 500
+            Show-LowMode
+        }
+    }
+}
+
+# ========================================
+# MEDIUM MODE
+# ========================================
+
+function Show-MediumMode {
+    Clear-Host
+    Write-Host $banner -ForegroundColor Cyan
+    
+    Write-Host "`n" -ForegroundColor Cyan
+    Write-Host "  ┌─────────────────────────────────────────┐" -ForegroundColor Cyan
+    Write-Host "  │          [2] MEDIUM MODE                │" -ForegroundColor Yellow
+    Write-Host "  ├─────────────────────────────────────────┤" -ForegroundColor Cyan
+    Write-Host "  │                                         │" -ForegroundColor Cyan
+    Write-Host "  │  📝 To-Do List Manager                  │" -ForegroundColor Green
+    Write-Host "  │  🧮 Calculator Pro                      │" -ForegroundColor Green
+    Write-Host "  │  💻 System Analyzer                     │" -ForegroundColor Green
+    Write-Host "  │  🎮 Mini Games                          │" -ForegroundColor Green
+    Write-Host "  │  ℹ️  About Arthur Shop                  │" -ForegroundColor Green
+    Write-Host "  │                                         │" -ForegroundColor Cyan
+    Write-Host "  │  [6] Back to Menu                       │" -ForegroundColor Red
+    Write-Host "  │                                         │" -ForegroundColor Cyan
+    Write-Host "  └─────────────────────────────────────────┘" -ForegroundColor Cyan
+    Write-Host ""
+    
+    $choice = Read-Host "[>] Select option (1-5 or 6)"
     
     switch($choice) {
         "1" { Show-TodoMenu }
@@ -91,19 +172,128 @@ while($true) {
         "3" { Show-SystemInfo }
         "4" { Show-Games }
         "5" { Show-About }
-        "6" { 
-            Write-Host "`n[*] Shutting down Arthur Shop..." -ForegroundColor Yellow
+        "6" { return }
+        default { 
+            Write-Host "`n[!] Invalid option!" -ForegroundColor Red
+            Start-Sleep -Milliseconds 500
+            Show-MediumMode
+        }
+    }
+}
+
+# ========================================
+# HIGH MODE
+# ========================================
+
+function Show-HighMode {
+    Clear-Host
+    Write-Host $banner -ForegroundColor Cyan
+    
+    Write-Host "`n" -ForegroundColor Cyan
+    Write-Host "  ┌─────────────────────────────────────────┐" -ForegroundColor Cyan
+    Write-Host "  │          [3] HIGH MODE                  │" -ForegroundColor Yellow
+    Write-Host "  ├─────────────────────────────────────────┤" -ForegroundColor Cyan
+    Write-Host "  │                                         │" -ForegroundColor Cyan
+    Write-Host "  │  📝 To-Do List Manager                  │" -ForegroundColor Green
+    Write-Host "  │  🧮 Calculator Pro (Advanced)           │" -ForegroundColor Green
+    Write-Host "  │  💻 System Analyzer (Full)              │" -ForegroundColor Green
+    Write-Host "  │  🎮 Mini Games (All)                    │" -ForegroundColor Green
+    Write-Host "  │  ℹ️  About Arthur Shop                  │" -ForegroundColor Green
+    Write-Host "  │  🔧 System Tools                        │" -ForegroundColor Green
+    Write-Host "  │  📊 Performance Monitor                 │" -ForegroundColor Green
+    Write-Host "  │                                         │" -ForegroundColor Cyan
+    Write-Host "  │  [8] Back to Menu                       │" -ForegroundColor Red
+    Write-Host "  │                                         │" -ForegroundColor Cyan
+    Write-Host "  └─────────────────────────────────────────┘" -ForegroundColor Cyan
+    Write-Host ""
+    
+    $choice = Read-Host "[>] Select option (1-7 or 8)"
+    
+    switch($choice) {
+        "1" { Show-TodoMenu }
+        "2" { Show-Calculator }
+        "3" { Show-SystemInfo }
+        "4" { Show-Games }
+        "5" { Show-About }
+        "6" { Show-SystemTools }
+        "7" { Show-PerformanceMonitor }
+        "8" { return }
+        default { 
+            Write-Host "`n[!] Invalid option!" -ForegroundColor Red
+            Start-Sleep -Milliseconds 500
+            Show-HighMode
+        }
+    }
+}
+
+# ========================================
+# RESET
+# ========================================
+
+function Show-Reset {
+    Clear-Host
+    Write-Host $banner -ForegroundColor Cyan
+    
+    Write-Host "`n" -ForegroundColor Cyan
+    Write-Host "  ┌─────────────────────────────────────────┐" -ForegroundColor Cyan
+    Write-Host "  │          [4] RESET                      │" -ForegroundColor Yellow
+    Write-Host "  ├─────────────────────────────────────────┤" -ForegroundColor Cyan
+    Write-Host "  │                                         │" -ForegroundColor Cyan
+    Write-Host "  │  [1] Clear To-Do List                   │" -ForegroundColor Green
+    Write-Host "  │  [2] Reset Settings                     │" -ForegroundColor Green
+    Write-Host "  │  [3] Clear Cache                        │" -ForegroundColor Green
+    Write-Host "  │  [4] Factory Reset                      │" -ForegroundColor Red
+    Write-Host "  │                                         │" -ForegroundColor Cyan
+    Write-Host "  │  [5] Back to Menu                       │" -ForegroundColor Red
+    Write-Host "  │                                         │" -ForegroundColor Cyan
+    Write-Host "  └─────────────────────────────────────────┘" -ForegroundColor Cyan
+    Write-Host ""
+    
+    $choice = Read-Host "[>] Select option (1-5)"
+    
+    switch($choice) {
+        "1" { 
+            Clear-Host
+            $todoFile = "$env:USERPROFILE\Desktop\arthur_todos.txt"
+            if (Test-Path $todoFile) {
+                Remove-Item $todoFile
+                Write-Host "[+] To-Do List cleared! ✓" -ForegroundColor Green
+            } else {
+                Write-Host "[!] No To-Do List found!" -ForegroundColor Yellow
+            }
+            Start-Sleep -Milliseconds 1000
+            Show-Reset
+        }
+        "2" { 
+            Clear-Host
+            Write-Host "[+] Settings reset! ✓" -ForegroundColor Green
+            Start-Sleep -Milliseconds 1000
+            Show-Reset
+        }
+        "3" { 
+            Clear-Host
+            Write-Host "[+] Cache cleared! ✓" -ForegroundColor Green
+            Start-Sleep -Milliseconds 1000
+            Show-Reset
+        }
+        "4" { 
+            Clear-Host
+            Write-Host "[!] Factory Reset initiated..." -ForegroundColor Red
+            Start-Sleep -Milliseconds 500
+            Write-Host "[*] Shutting down Arthur Shop..." -ForegroundColor Yellow
             Start-Sleep -Milliseconds 300
             Write-Host "[+] Goodbye! Thanks for using Arthur Shop! 👋" -ForegroundColor Green
             Start-Sleep -Milliseconds 300
             Write-Host "[*] Opening Discord channel..." -ForegroundColor Yellow
             Start-Process "https://discord.com/channels/1488127212262785107/1520977401520062474"
             Start-Sleep -Milliseconds 500
-            exit 
+            exit
         }
+        "5" { return }
         default { 
             Write-Host "`n[!] Invalid option!" -ForegroundColor Red
             Start-Sleep -Milliseconds 500
+            Show-Reset
         }
     }
 }
@@ -348,6 +538,52 @@ function Play-DiceRoller {
 }
 
 # ========================================
+# SYSTEM TOOLS
+# ========================================
+
+function Show-SystemTools {
+    Clear-Host
+    Write-Host "`n╔════════════════════════════════════╗" -ForegroundColor Cyan
+    Write-Host "║   🔧 SYSTEM TOOLS                  ║" -ForegroundColor Cyan
+    Write-Host "╚════════════════════════════════════╝`n" -ForegroundColor Cyan
+    
+    Write-Host "[+] Disk Usage:" -ForegroundColor Green
+    $disk = Get-PSDrive C | Select-Object @{Name="PercentFree";Expression={[math]::Round($_.Free/$_.Used*100)}}
+    Write-Host "    Free: $($disk.PercentFree)%" -ForegroundColor Yellow
+    
+    Write-Host "`n[+] Network Status:" -NoNewline -ForegroundColor Green
+    $ping = Test-Connection -ComputerName google.com -Count 1 -Quiet
+    if ($ping) {
+        Write-Host " Online 🟢" -ForegroundColor Green
+    } else {
+        Write-Host " Offline 🔴" -ForegroundColor Red
+    }
+    
+    Read-Host "`n[*] Press Enter to continue"
+}
+
+# ========================================
+# PERFORMANCE MONITOR
+# ========================================
+
+function Show-PerformanceMonitor {
+    Clear-Host
+    Write-Host "`n╔════════════════════════════════════╗" -ForegroundColor Cyan
+    Write-Host "║   📊 PERFORMANCE MONITOR           ║" -ForegroundColor Cyan
+    Write-Host "╚════════════════════════════════════╝`n" -ForegroundColor Cyan
+    
+    Write-Host "[+] CPU Usage:" -ForegroundColor Green
+    $cpu = Get-WmiObject Win32_Processor | Select-Object -ExpandProperty LoadPercentage
+    Write-Host "    $cpu%" -ForegroundColor Yellow
+    
+    Write-Host "`n[+] Memory Usage:" -ForegroundColor Green
+    $ram = Get-WmiObject Win32_OperatingSystem | Select-Object @{Name="PercentMemory";Expression={[math]::Round((($_.TotalVisibleMemorySize-$_.FreePhysicalMemory)/$_.TotalVisibleMemorySize)*100)}}
+    Write-Host "    $($ram.PercentMemory)%" -ForegroundColor Yellow
+    
+    Read-Host "`n[*] Press Enter to continue"
+}
+
+# ========================================
 # ABOUT
 # ========================================
 
@@ -368,9 +604,6 @@ function Show-About {
     
     Write-Host "Language: " -NoNewline -ForegroundColor Green
     Write-Host "PowerShell" -ForegroundColor Yellow
-    
-    Write-Host "Features: " -NoNewline -ForegroundColor Green
-    Write-Host "To-Do, Calculator, System Info, Games" -ForegroundColor Yellow
     
     Write-Host "Discord Channel: " -NoNewline -ForegroundColor Green
     Write-Host "https://discord.com/channels/1488127212262785107/1520977401520062474" -ForegroundColor Yellow
