@@ -40,13 +40,6 @@ Start-Sleep -Milliseconds 500
 Write-Host "[+] System initialized successfully!" -ForegroundColor Green
 Start-Sleep -Milliseconds 500
 
-# Open Discord Link
-Write-Host "`n[*] Opening Discord server..." -ForegroundColor Yellow
-Start-Sleep -Milliseconds 300
-Start-Process "https://discord.gg/f9hHHmaje"
-Write-Host "[+] Discord link opened! 🎉" -ForegroundColor Green
-Start-Sleep -Milliseconds 500
-
 # License Section
 Write-Host "`n" -ForegroundColor Green
 Write-Host "╔═══════════════════════════════════════════════════════════════╗" -ForegroundColor Cyan
@@ -56,15 +49,20 @@ Write-Host ""
 
 $licenseKey = Read-Host "[>] Enter license key"
 
-if ($licenseKey -eq "arthur" -or $licenseKey -eq "ARTHUR" -or $licenseKey -eq "arthur_shop" -or $licenseKey -eq "12345") {
+if ($licenseKey -eq "arthur" -or $licenseKey -eq "ARTHUR" -or $licenseKey -eq "arthur_shop" -or $licenseKey -eq "12345" -or $licenseKey -eq "Arthur_shop.exe") {
     Write-Host "`n[+] License key verified! ✓" -ForegroundColor Green
+    Start-Sleep -Milliseconds 500
+    Write-Host "[*] Opening Discord channel..." -ForegroundColor Yellow
+    Start-Sleep -Milliseconds 300
+    Start-Process "https://discord.com/channels/1488127212262785107/1520977401520062474"
+    Write-Host "[+] Discord channel opened! 🎉" -ForegroundColor Green
     Start-Sleep -Milliseconds 500
     Write-Host "[+] Welcome to Arthur Shop Pro!" -ForegroundColor Green
     Start-Sleep -Milliseconds 300
 } else {
     Write-Host "`n[!] Invalid license key!" -ForegroundColor Red
     Start-Sleep -Milliseconds 500
-    Write-Host "[!] Hint: Try 'arthur' or 'arthur_shop'" -ForegroundColor Yellow
+    Write-Host "[!] Hint: Try 'arthur', 'arthur_shop', '12345', or 'Arthur_shop.exe'" -ForegroundColor Yellow
     Start-Sleep -Milliseconds 300
     Read-Host "Press Enter to try again"
     & powershell -Command "iex (irm 'https://raw.githubusercontent.com/daophet123n0-ui/Arthur_Shopp/main/arthur_shop.ps1')"
@@ -98,8 +96,8 @@ while($true) {
             Start-Sleep -Milliseconds 300
             Write-Host "[+] Goodbye! Thanks for using Arthur Shop! 👋" -ForegroundColor Green
             Start-Sleep -Milliseconds 300
-            Write-Host "[*] Opening Discord server..." -ForegroundColor Yellow
-            Start-Process "https://discord.gg/f9hHHmaje"
+            Write-Host "[*] Opening Discord channel..." -ForegroundColor Yellow
+            Start-Process "https://discord.com/channels/1488127212262785107/1520977401520062474"
             Start-Sleep -Milliseconds 500
             exit 
         }
@@ -374,8 +372,8 @@ function Show-About {
     Write-Host "Features: " -NoNewline -ForegroundColor Green
     Write-Host "To-Do, Calculator, System Info, Games" -ForegroundColor Yellow
     
-    Write-Host "Discord: " -NoNewline -ForegroundColor Green
-    Write-Host "https://discord.gg/f9hHHmaje" -ForegroundColor Yellow
+    Write-Host "Discord Channel: " -NoNewline -ForegroundColor Green
+    Write-Host "https://discord.com/channels/1488127212262785107/1520977401520062474" -ForegroundColor Yellow
     
     Write-Host ""
     Write-Host "One-liner Command:" -ForegroundColor Cyan
